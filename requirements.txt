@@ -13,4 +13,5 @@ folium
 pandas
 geopandas
 Flask-Markdown
+Werkzeug
 gunicorn 
