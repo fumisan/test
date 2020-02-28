@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+  <!-- Form
+  ================================================== -->
+  <h1>【掲示板】</h1>
+  <form action="/boardresult" method="post">
+      <input type="hidden" name="comment_box">
+      <label for="comment_">投稿</label>
+      <textarea name="comment_data" rows="6" cols="50"></textarea>
+      <p></p>
+      <label for="name">名前</label>
+      <input type="text" name="name">
+      <button type="submit">送信する</button>
+      </form>
+  <h2>【投稿一覧】</h2>
+  
+  <form method="post" action="">
+    　<table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>日付</th>
+                    <th>名前</th>
+                    <th>投稿内容</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for th in lines %}
+                <tr>
+                <td>{{ th.pub_date }}</td>
+                <td>{{ th.name }}</td>
+                <td>{{ th.comment }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+  
+ <p></p>
+{% endblock %}

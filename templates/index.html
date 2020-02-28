@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+  <!-- Form
+  ================================================== -->
+<div class="form">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="lead">
+          {% if name %}
+            こんにちは {{ name }} さん
+          {% else %}
+            {{ message }}
+          {% endif %}
+        </p>
+        <p><a href="/msg">ログイン</a></p>
+        <p><a href="/mypage">マイページ</a></p>
+        <p><a href="/upload">アップロード</a></p>
+        <p><a href="/excel">Excel編集</a></p>
+        <p><a href="/board">掲示板</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
