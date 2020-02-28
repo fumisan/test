@@ -10,7 +10,7 @@ import pprint
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3 # データベース
 import folium #leafletをPythonで使えるようにしたモジュール
-from werkzeug import secure_filename 
+from werkzeug.utils import secure_filename 
 import requests
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
