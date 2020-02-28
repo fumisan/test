@@ -1,0 +1,13 @@
+HerokuへのWebアプリのアップロード
+heroku login
+git init
+git add .
+git commit -m "upload func add"
+heroku create app_name
+git push heroku master
+heroku open
+
+自分のgithubへ出力
+git remote add origin https://github.com/fumisan/test.git
+git push -u origin master
+git pull
