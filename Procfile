@@ -1,1 +1,1 @@
-web: uwsgi --http-socket :\$PORT --module 'flaskr:create_app()'
+web:gunicorn app:app --log-file -
