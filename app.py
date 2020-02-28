@@ -8,7 +8,9 @@ from datetime import datetime
 import openpyxl
 import pprint
 from flask_sqlalchemy import SQLAlchemy
-import sqlite3 # 追加
+import sqlite3 # データベース
+import py
+import folium #leafletをPythonで使えるようにしたモジュール
 
 UPLOAD_DIR = './uploads/'
 
@@ -75,7 +77,7 @@ def msg():
     return render_template('msg.html',
                            message=message, title=title)
 
-@app.route('/post', methods=['POST', 'GET'])
+@app.route('/post', methods=['GET', 'POST'])
 def post():
     title = "こんにちは"
     if request.method == 'POST':
@@ -133,35 +135,17 @@ def boardresult():
     return render_template("boardresult.html", comment=comment, name=name, now=date)
 
 #地図
-@app.route("/map", methods=["GET"])
+@app.route("/map", methods=['GET', 'POST'])
 def map():
     return render_template('map.html')
 
 # 投稿の送信とデータベース追加
-@app.route("/database", methods=["GET"])
+@app.route("/database", methods=['GET', 'POST'])
 def database():
-    entries = get_db().execute('select title, body from entries').fetchall() # 追加
-    return render_template('database.html', entries=entries) # 変更
-
-# Database
-def connect_db():
-    db_path = os.path.join(app.root_path, 'flasknote.db')
-    rv = sqlite3.connect(db_path)
-    rv.row_factory = sqlite3.Row
-    return rv
-
-def get_db():
-    if not hasattr(g, 'sqlite_db'):
-        g.sqlite_db = connect_db()
-    return g.sqlite_db
-
-@app.teardown_appcontext
-def close_db(error):
-    if hasattr(g, 'sqlite_db'):
-        g.sqlite_db.close()
+    return render_template('site.html')
 
 #参考サイト
-@app.route("/site", methods=["GET"])
+@app.route("/site", methods=['GET', 'POST'])
 def site():
     return render_template('site.html')
 
