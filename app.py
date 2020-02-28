@@ -9,7 +9,6 @@ import openpyxl
 import pprint
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3 # データベース
-import py
 import folium #leafletをPythonで使えるようにしたモジュール
 
 UPLOAD_DIR = './uploads/'
@@ -137,17 +136,17 @@ def boardresult():
 #地図
 @app.route("/map", methods=['GET', 'POST'])
 def map():
-    return render_template('map.html')
+    return render_template('reference.html')
 
 # 投稿の送信とデータベース追加
 @app.route("/database", methods=['GET', 'POST'])
 def database():
-    return render_template('site.html')
+    return render_template('reference.html')
 
 #参考サイト
 @app.route("/site", methods=['GET', 'POST'])
 def site():
-    return render_template('site.html')
+    return render_template('reference.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
