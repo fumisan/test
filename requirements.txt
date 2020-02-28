@@ -1,5 +1,10 @@
 Flask
 flask_sqlalchemy
+Click
+Jinja2
+Markuosafe
+psycopg2
+SQLAlchemy
 openpyxl
 request
 openpyxl
