@@ -10,10 +10,15 @@ import pprint
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3 # データベース
 import folium #leafletをPythonで使えるようにしたモジュール
+from werkzeug import secure_filename 
+import requests
 
-UPLOAD_DIR = './uploads/'
-
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+path_2_tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
 app = Flask(__name__)
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 # オブジェクト変更追跡システム無効設定
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -91,15 +96,25 @@ def post():
 def upload() :
     if request.method == 'POST' :
         f = request.files['file1']
-        f.save(UPLOAD_DIR + f.filename)
-        return render_template('upload.html', message='Uploaded ' + UPLOAD_DIR + f.filename)
+        if f:
+            filename = secure_filename(f.filename)
+            #path_2_tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
+            print(os.path.join(path_2_tmp, filename))
+            if not os.path.exists(path_2_tmp):
+                os.mkdir(path_2_tmp)
+            f.save(os.path.join(path_2_tmp, filename))
+            return render_template('upload.html', message='Uploaded ' + os.path.join(path_2_tmp, filename))
+        else:
+            return render_template('upload.html', message="Nothing")
     else :
-        files = listup_files(UPLOAD_DIR)
+        files = listup_files(path_2_tmp)
         return render_template('upload.html', filelist=files)
 
 #ファイルリスト取得
 def listup_files(path):
-    yield [os.path.abspath(p) for p in glob.glob(path)]
+    flist = [os.path.abspath(p) for p in glob.glob(path)]
+    print(flist)
+    return flist
 
 #excel編集
 @app.route('/excel', methods=['GET', 'POST'])
