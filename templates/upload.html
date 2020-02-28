@@ -9,6 +9,24 @@
         <div><button type="submit">Submit</button></div>
     </form>
     <p>{{ message }}</p>
-
 </div>
+
+<table class="table">
+  <thead class="thead-dark">
+      <tr>
+          <th>日付</th>
+          <th>名前</th>
+          <th>投稿内容</th>
+      </tr>
+  </thead>
+  <tbody>
+  {% for th in lines %}
+      <tr>
+      <td>{{ th.pub_date }}</td>
+      <td>{{ th.name }}</td>
+      <td>{{ th.comment }}</td>
+      </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

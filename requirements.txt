@@ -2,4 +2,5 @@ Flask
 flask_sqlalchemy
 openpyxl
 request
-beautiful4soap
+openpyxl
+pprint
