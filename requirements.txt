@@ -1,6 +1,6 @@
 Flask
 flask_sqlalchemy
-Click
+numpy
 Jinja2
 Markupsafe
 psycopg2
