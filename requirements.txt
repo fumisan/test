@@ -9,4 +9,8 @@ openpyxl
 request
 openpyxl
 pprint
+folium
+pandas
+geopandas
+Flask-Markdown
 gunicorn 

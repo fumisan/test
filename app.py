@@ -8,6 +8,7 @@ from datetime import datetime
 import openpyxl
 import pprint
 from flask_sqlalchemy import SQLAlchemy
+import sqlite3 # 追加
 
 UPLOAD_DIR = './uploads/'
 
@@ -79,11 +80,12 @@ def post():
     title = "こんにちは"
     if request.method == 'POST':
         name = request.form['name']
-        return render_template('index.html',
+        return render_template('msg.html',
                                name=name, title=title)
     else:
         return redirect(url_for('msg'))
 
+#ファイルのアップロード
 @app.route('/upload', methods=['GET', 'POST'])
 def upload() :
     if request.method == 'POST' :
@@ -91,9 +93,14 @@ def upload() :
         f.save(UPLOAD_DIR + f.filename)
         return render_template('upload.html', message='Uploaded ' + UPLOAD_DIR + f.filename)
     else :
-        return render_template('upload.html', message="")
+        files = listup_files(UPLOAD_DIR)
+        return render_template('upload.html', filelist=files)
 
+#ファイルリスト取得
+def listup_files(path):
+    yield [os.path.abspath(p) for p in glob.glob(path)]
 
+#excel編集
 @app.route('/excel', methods=['GET', 'POST'])
 def excel() :
     if request.method == 'POST' :
@@ -125,7 +132,38 @@ def boardresult():
     db.session.commit()
     return render_template("boardresult.html", comment=comment, name=name, now=date)
 
+#地図
+@app.route("/map", methods=["GET"])
+def map():
+    return render_template('map.html')
 
+# 投稿の送信とデータベース追加
+@app.route("/database", methods=["GET"])
+def database():
+    entries = get_db().execute('select title, body from entries').fetchall() # 追加
+    return render_template('database.html', entries=entries) # 変更
+
+# Database
+def connect_db():
+    db_path = os.path.join(app.root_path, 'flasknote.db')
+    rv = sqlite3.connect(db_path)
+    rv.row_factory = sqlite3.Row
+    return rv
+
+def get_db():
+    if not hasattr(g, 'sqlite_db'):
+        g.sqlite_db = connect_db()
+    return g.sqlite_db
+
+@app.teardown_appcontext
+def close_db(error):
+    if hasattr(g, 'sqlite_db'):
+        g.sqlite_db.close()
+
+#参考サイト
+@app.route("/site", methods=["GET"])
+def site():
+    return render_template('site.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

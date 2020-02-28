@@ -20,11 +20,9 @@
       </tr>
   </thead>
   <tbody>
-  {% for th in lines %}
+  {% for file in filelist %}
       <tr>
-      <td>{{ th.pub_date }}</td>
-      <td>{{ th.name }}</td>
-      <td>{{ th.comment }}</td>
+      <td>{{ file }}</td>
       </tr>
   {% endfor %}
   </tbody>
