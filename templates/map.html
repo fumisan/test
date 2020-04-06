@@ -1,19 +1,43 @@
-{% extends "layout.html" %}
-{% block content %}
-<h1>参考サイト</h1>
-<hr>
-<div>
-    <h3>Geocoding</h3>
-    <ul>
-        URL:<a href="https://www.geocoding.jp/">https://www.geocoding.jp/</a>
-    </ul>
-    <h3>OpenStreetMap</h3>
-    <ul>
-        URL:<a href="https://openstreetmap.jp/">https://openstreetmap.jp/</a>
-    </ul>
-    <h3>Leaflet</h3>
-    <ul>
-        URL:<a href="https://leafletjs.com/">https://leafletjs.com/</a>
-    </ul>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Map Smaple</title>
+    <!--
+                css:
+                        bootstrap, leaflet, GoogleWebFonts, style
+        -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed">
+    <!--
+                js:
+                        leaftlet, jquery, jquery.csv, FileSaver,
+        -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.2/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+
+</head>
+
+<body>
+    <h1>大阪マップ</h1>
+    <div id="mapcontainer" style="width:600px;height:600px;margin:20px;"></div>
+    <div id="mapsetting" hidden>
+        <span>緯度</span>
+        <input id="maplat" type="number" step="0.01" value=135.30>
+        <span>経度</span>
+        <input id="maplng" type="number" step="0.01" value=34.41>
+        <span>マップレベル</span>
+        <input id="maplevel" type="number" step="1" value=13>
+    </div>
+    <button onclick="history.back()">戻る</button>
+
+    <!-- 以下を追記 -->
+    <script src="/static/js/leaflet.js"></script>
+</body>
+
+</html>
